@@ -22,7 +22,11 @@
 // 1.  stdin = "2 1 3", stdout = "3"
 // 2.  stdin = "2 0 3", stdout = "-1"
 
-#include <cstdio>
+#include <iostream>
+
+using std::cin;
+using std::cout;
+using std::endl;
 
 // #define MYDEBUG
 
@@ -41,8 +45,8 @@ int main( int argc, char *argv[] ) {
     int val2im1 = 0; // val[2*i-1]
     int val2i = 0; // val[2*i]
 
-    scanf("%d %d %d", &x, &y, &z);
-    
+    cin >> x >> y >> z;
+
     if ( x == y ) {
         answer = z == x ? 1 : -1;
     } else {
@@ -74,13 +78,13 @@ int main( int argc, char *argv[] ) {
     }
 
 #ifdef MYDEBUG
-    printf( "x = %d, y = %d, z = %d\n", x, y, z );
-    for (unsigned int i : seqA) {
-        printf( "%d ", i );
+    cout << "x = " << x << " y = " << y << " z = " << z << endl;
+    for (unsigned int val : seqA) {
+        cout << val << " ";
     }
-    printf( "\n" );
+    cout << endl;
 #endif
-    printf("%d\n", answer);
+    cout << answer << endl;
 
     return 0;
 }
