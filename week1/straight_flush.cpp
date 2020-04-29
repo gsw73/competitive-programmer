@@ -86,7 +86,7 @@ int main( int argc, char *argv[] ) {
         answer = check_flush(ranks);
     }
 
-    cout << answer;
+    cout << answer << endl;
 
     return 0;
 }

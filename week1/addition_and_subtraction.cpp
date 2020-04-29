@@ -34,7 +34,7 @@ static const unsigned int NUM = 2000;
 
 #ifdef MYDEBUG
 void track_values( int index, int val2im1, int val2i );
-static unsigned int seqA[NUM] = {0};
+static int seqA[NUM] = {0};
 #endif
 
 int main( int argc, char *argv[] ) {
@@ -79,7 +79,7 @@ int main( int argc, char *argv[] ) {
 
 #ifdef MYDEBUG
     cout << "x = " << x << " y = " << y << " z = " << z << endl;
-    for (unsigned int val : seqA) {
+    for (int val : seqA) {
         cout << val << " ";
     }
     cout << endl;

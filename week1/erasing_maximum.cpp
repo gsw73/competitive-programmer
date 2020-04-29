@@ -67,13 +67,13 @@ int main( int argc, char *argv[] ) {
     }
 
     for ( auto i = 0; i < num; i++ ) {
+        if ( i != 0 && i != location_to_remove) seqB_str << ' ';
         if ( i != location_to_remove ) {
-            seqB_str << seqA[i] << ' ';
+            seqB_str << seqA[i];
         }
     }
-    seqB_str << endl;
 
-    cout << seqB_str.str();
+    cout << seqB_str.str() << endl;
     return 0;
 }
 
