@@ -30,7 +30,7 @@ using std::endl;
 
 // #define MYDEBUG
 
-static const unsigned int NUM = 2000;
+static const unsigned int NUM = 2500;
 
 #ifdef MYDEBUG
 void track_values( int index, int val2im1, int val2i );
@@ -47,7 +47,9 @@ int main( int argc, char *argv[] ) {
 
     cin >> x >> y >> z;
 
-    if ( x == y ) {
+    if ( z == 0 ) {
+        answer = 0;
+    } else if ( x == y ) {
         answer = z == x ? 1 : -1;
     } else {
         for (int i = 1; i < NUM / 2; i++) {
@@ -79,9 +81,14 @@ int main( int argc, char *argv[] ) {
 
 #ifdef MYDEBUG
     cout << "x = " << x << " y = " << y << " z = " << z << endl;
-    for (int val : seqA) {
-        cout << val << " ";
+    cout << "partial" << endl;
+    for ( int i = 0; i < 20; i++ ) {
+        if ( i != 0 ) cout << " ";
+        cout << seqA[i];
     }
+//    for (int val : seqA) {
+//        cout << val << " ";
+//    }
     cout << endl;
 #endif
     cout << answer << endl;

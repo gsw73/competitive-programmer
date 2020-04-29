@@ -18,6 +18,30 @@ def main():
     tests.append(test5)
     test6 = {'input': '47 12 817', 'output': '45'}
     tests.append(test6)
+    test7 = {'input': '0 0 0', 'output': '0'}
+    tests.append(test7)
+    test8 = {'input': '4 3 0', 'output': '0'}
+    tests.append(test8)
+    test9 = {'input': '8 8 0', 'output': '0'}
+    tests.append(test9)
+    test10 = {'input': '2 2 100', 'output': '-1'}
+    tests.append(test10)
+    test10 = {'input': '4 1 999', 'output': '666'}
+    tests.append(test10)
+    test11 = {'input': '1 0 1000', 'output': '1999'}
+    tests.append(test11)
+    test12 = {'input': '1 1 1', 'output': '1'}
+    tests.append(test12)
+    test13 = {'input': '1000 999 999', 'output': '1998'}
+    tests.append(test13)
+    test14 = {'input': '900 898 500', 'output': '500'}
+    tests.append(test14)
+    test15 = {'input': '3 1 999', 'output': '997'}
+    tests.append(test15)
+    test16 = {'input': '100 99 99', 'output': '198'}
+    tests.append(test16)
+    test17 = {'input': '0 0 1', 'output': '-1'}
+    tests.append(test17)
 
     for test in tests:
         # run the test
