@@ -65,7 +65,7 @@ int main( int argc, char *argv[] ) {
     for ( auto i = 1; i < NUM; i++ ) {
         if ( raw_cards[i][1] != suit ) {
             answer = NO;
-            cout << answer;
+            cout << answer << endl;
             return 0;
         }
     }
