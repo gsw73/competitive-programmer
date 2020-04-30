@@ -18,7 +18,7 @@ def get_num_str(str_len=10):
 def main():
     parser = argparse.ArgumentParser(description='Test program 1.3, Increment, with two Methods.')
     parser.add_argument('-m', '--method', type=str, choices=['time', 'memory', 'getline'],
-                        default='memory', help='chooses time-intensive method, else mem-intensive')
+                        default='memory', help='chooses input operator as memory:>>-to-c++-string, time:cin.get(char&), and getline:cin.getline(char*)')
     options = parser.parse_args()
 
     executable = '../../cmake-build-debug/increment'
