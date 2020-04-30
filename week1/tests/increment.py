@@ -17,15 +17,16 @@ def get_num_str(str_len=10):
 
 def main():
     parser = argparse.ArgumentParser(description='Test program 1.3, Increment, with two Methods.')
-    parser.add_argument('-m', '--method', type=str, choices=['time', 'memory'],
-                        help='chooses time-intensive method, else mem-intensive')
+    parser.add_argument('-m', '--method', type=str, choices=['time', 'memory', 'getline'],
+                        default='memory', help='chooses time-intensive method, else mem-intensive')
     options = parser.parse_args()
 
     executable = '../../cmake-build-debug/increment'
-    method1 = [executable, 'one']
-    method2 = [executable]
-    method = method2 if options.method == 'time' else method1
-    method_str = '2/time' if options.method == 'time' else '1/mem'
+    method1 = [executable]
+    method2 = [executable, '2']
+    method3 = [executable, '3']
+    method = method2 if options.method == 'time' else method1 if options.method == 'memory' else method3
+    method_str = '2/time' if options.method == 'time' else '1/mem' if options.method == 'memory' else '3/getline'
     tests = []
     smoke_test_status = 'PASS'
 
@@ -51,6 +52,15 @@ def main():
     test5_output_len = test5_input_len + 1 if test5_input_str[-1] == '9' else test5_input_len
     test5 = {'input': test5_input_str, 'output': str(test5_output_len)}
     tests.append(test5)
+
+    test6 = {'input': '999919 ', 'output': '7'}
+    tests.append(test6)
+
+    test7_input_str = '899999999999999999999999999999'
+    test7_input_len = len(test7_input_str)
+    test7_output_len = test7_input_len + 1 if test7_input_str[-1] == '9' else test7_input_len
+    test7 = {'input': test7_input_str, 'output':str(test7_output_len)}
+    tests.append(test7)
 
     for test in tests:
         # run the test
