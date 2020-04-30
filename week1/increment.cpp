@@ -56,20 +56,29 @@ unsigned int method_one() {
     string val_st;
     unsigned int len;
     unsigned int xp1_len;
+    bool all_nines = true;
 
     // read entire string from standard input
     cin >> val_st;
 
-    // get length
+    // are all characters '9'?
+    for (auto val : val_st) {
+        if (val != '9') {
+            all_nines = false;
+            break;
+        }
+    }
+
+    // original string length
     len = val_st.length();
 
 #ifdef MYDEBUG
-    cout << "Method 1 (memory intensive)" << endl;
+    cout << "Method 1 (C++ string)" << endl;
     cout << "length = " << len << endl;
-    cout << "final digit = " << val_st[len - 1] << endl;
+    cout << "all 9s? " << std::boolalpha << all_nines << endl;
 #endif
 
-    xp1_len = val_st[len-1] == '9' ? len + 1 : len;
+    xp1_len = all_nines ? len + 1 : len;
 
     return xp1_len;
 }
@@ -78,22 +87,27 @@ unsigned int method_two() {
     unsigned int len = 0;
     unsigned int xp1_len;
     char char_digit;
-    char final_char_digit = 0;
+    bool all_nines = true;
 
     // read value from standard input
     while( cin.get(char_digit) ) {
-        if (std::isspace(char_digit)) break;
-        final_char_digit = char_digit;
-        len++;
+        if (std::isdigit(char_digit)) {
+            len++;
+            if ( char_digit != '9' ) {
+                all_nines = false;
+            }
+        } else if ( char_digit == '\n' ) {
+            break;
+        }
     }
 
 #ifdef MYDEBUG
-    cout << "Method 2 (time intensive)" << endl;
+    cout << "Method 2 (cin.get(char&)" << endl;
     cout << "length = " << len << endl;
-    cout << "final digit = " << final_char_digit << endl;
+    cout << "all 9s? " << std::boolalpha << all_nines << endl;
 #endif
 
-    xp1_len = final_char_digit == '9' ? len + 1 : len;
+    xp1_len = all_nines ? len + 1 : len;
 
     return xp1_len;
 }
@@ -103,8 +117,8 @@ unsigned int method_three() {
     char big_str[MAXCHAR];
     unsigned int len = 0;
     unsigned int xp1_len;
-    char final_char_digit;
     char *tmp_p = big_str;
+    bool all_nines = true;
 
     // read entire line from stdin
     cin.getline(big_str, MAXCHAR);
@@ -113,7 +127,9 @@ unsigned int method_three() {
     while(*tmp_p != '\0') {
         if ( isdigit(*tmp_p) ) {
             len++;
-            final_char_digit = *tmp_p;
+            if ( *tmp_p != '9' ) {
+                all_nines = false;
+            }
         }
         tmp_p++;
     }
@@ -122,10 +138,10 @@ unsigned int method_three() {
     cout << "Method 3 (getline)" << endl;
     cout << "input string = " << big_str << endl;
     cout << "length = " << len << endl;
-    cout << "final digit = " << final_char_digit << endl;
+    cout << "all 9s? " << std::boolalpha << all_nines << endl;
 #endif
 
-    xp1_len = final_char_digit == '9' ? len + 1 : len;
+    xp1_len = all_nines ? len + 1 : len;
 
     return xp1_len;
 }
