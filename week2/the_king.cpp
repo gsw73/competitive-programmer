@@ -20,56 +20,30 @@ using std::cin;
 using std::cout;
 using std::endl;
 
-#define MYDEBUG
+// #define MYDEBUG
 
 uint32_t calculate_kings( uint32_t, uint32_t, uint32_t );
 
 int main( int argc, char *argv[] ) {
     uint32_t row, col;
-    uint32_t sw_row, sw_col;
     uint32_t kings;
-    uint32_t rows_with_blanks, rows_filled;
+    uint32_t rb, cb;
 
     cin >> row >> col;
 
+#ifdef MYDEBUG
     cout << "read in rows x col:  " << row << " x " << col << endl;
+#endif
 
-    // answer is symmetrical so always deal with something wider than
-    // tall so that special cases will always be in the same place
-    if ( row > col ) {
-        sw_col = row;
-        sw_row = col;
-    } else {
-        sw_col = col;
-        sw_row = row;
-    }
+    // let rb = rows-with-blanks and cb = columns-with-blanks
+    rb = row / 3 + ( row % 3 ? 1 : 0 );
+    cb = col / 3 + ( col % 3 ? 1 : 0 );
 
-    if ( sw_row == 1 && sw_col == 1 ) {
-        kings = 0;
-    } else {
-        if ( sw_row == 1 ) {
-            rows_with_blanks = 1;
-            rows_filled = 0;
-        } else {
-            rows_with_blanks = sw_row / 2;
-            rows_filled = sw_row / 2 + sw_row % 2;
-        }
-        kings = calculate_kings( rows_with_blanks, rows_filled, sw_col );
-    }
+    // kings = full rows * col + rows with blanks * full col
+    kings = ( row - rb ) * col + rb * ( col - cb );
 
     cout << kings << endl;
 
     return 0;
 }
 
-uint32_t calculate_kings( uint32_t rows_with_blanks, uint32_t rows_filled, uint32_t sw_col ) {
-    uint32_t kings_in_blank_rows;
-    uint32_t blanks;
-    uint32_t kings;
-
-    blanks = sw_col / 3 + ( sw_col % 3 ? 1 : 0 );
-    kings_in_blank_rows = sw_col - blanks;
-
-    kings = rows_filled * sw_col + rows_with_blanks * kings_in_blank_rows;
-    return kings;
-}
