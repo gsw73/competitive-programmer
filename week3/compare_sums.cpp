@@ -14,6 +14,7 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include <string>
 
 using std::cin;
 using std::cout;
@@ -22,9 +23,9 @@ using std::string;
 
 // #define MYDEBUG
 
-static string eq = "SUM(A)=SUM(B)";
-static string gt = "SUM(A)>SUM(B)";
-static string lt = "SUM(A)<SUM(B)";
+static const string eq = "SUM(A)=SUM(B)";
+static const string gt = "SUM(A)>SUM(B)";
+static const string lt = "SUM(A)<SUM(B)";
 
 static double eps = 1e-8;
 

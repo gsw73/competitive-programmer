@@ -81,6 +81,17 @@ def main():
     test7['output'] = EQ
     tests.append(test7)
     
+    # test 8
+    test8 = {'n': 3}
+    test8['arA'] = '235.123 100.887 16.876'.split(' ')
+    test8['arB'] = '235.123 100.887 16.877'.split(' ')
+    test8['input'] = str(test8['n']) + '\n' + '{line2}\n{line3}'.format(
+        line2=' '.join(val for val in test8['arA']),
+        line3=' '.join(val for val in test8['arB'])
+    )
+    test8['output'] = LT
+    tests.append(test8)
+    
     for test in tests:
         testnum += 1
         my_test_run = subprocess.run(my_executable, input=test['input'], capture_output=True, text=True)
@@ -89,7 +100,7 @@ def main():
         my_stdout = my_test_run.stdout[:-1]
         pf = 'PASS' if my_stdout == test['output'] else 'FAIL'
         print('Test{tnum}: \n{tinput}\nstdout:\nres={toutput}, exp={texp}, p/f={pf}\n'.format(
-            tnum=test['n'],
+            tnum=testnum,
             tinput=test['input'],
             toutput=my_stdout,
             texp=test['output'],
