@@ -48,6 +48,14 @@ def main():
     test10 = {'input': '999999999 1000000000', 'output': '1'}
     tests.append(test10)
 
+    # test 11
+    test11 = {'input': '987654321 23', 'output': '42941493'}
+    tests.append(test11)
+
+    # test 12
+    test12 = {'input': '0 1000000000', 'output': '0'}
+    tests.append(test12)
+
     for test in tests:
         testnum += 1
         my_test_run = subprocess.run(my_executable, input=test['input'], capture_output=True, text=True)
