@@ -15,7 +15,7 @@ using std::cout;
 using std::endl;
 using std::vector;
 
-#define MYDEBUG
+// #define MYDEBUG
 
 class Item {
 private:
@@ -46,13 +46,9 @@ std::ostream & operator<<(std::ostream & os, const Item & it) {
 }
 
 bool operator<(const Item & i1, const Item & i2 ) {
-    if ((i1.value > i2.value) || ((i1.value == i2.value) && (i1.weight < i2.weight)))
-        return true;
-    else
-        return false;
+    return (i1.value > i2.value) || ((i1.value == i2.value) && (i1.weight < i2.weight));
 }
 
-static uint32_t calls;
 static uint32_t max_value;
 void show_input( uint32_t, uint32_t, vector<Item> & );
 void save_max_value(uint32_t);
@@ -69,18 +65,21 @@ int main( int argc, char *argv[] ) {
         Item *an_item = new Item(wi, vi);
         items.push_back(*an_item);
     }
-    
+
+#ifdef MYDEBUG
     show_input( n, wmax, items );
+#endif
 
     std::sort(items.begin(), items.end());
 
+#ifdef MYDEBUG
     cout << endl;
     cout << "sorted by high value:  " << endl;
     show_input( n, wmax, items );
+#endif
 
     fill_knapsack(0, 0, wmax, 0, items);
 
-    cout << "max value is" << endl;
     cout << max_value << endl;
     return 0;
 }
@@ -88,26 +87,32 @@ int main( int argc, char *argv[] ) {
 void fill_knapsack(uint32_t cumulative_weight, uint32_t cumulative_value, uint32_t wmax, uint32_t start, vector<Item> & items) {
     uint32_t cw, cv;
     uint32_t next_start;
-
+#ifdef MYDEBUG
+    static uint32_t calls;
     calls++;
-    for ( int j = 0; j < start; j++ ) { cout << "\t"; }
-    cout << "Call" << calls << " with w=" << cumulative_weight << ", v=" << cumulative_value << ", start=" << start << endl;
+#endif
 
     for ( int i = start; i < items.size(); i++) {
         cw = cumulative_weight + items[i].get_weight();
         cv = cumulative_value + items[i].get_value();
         next_start = i + 1;
 
+#ifdef MYDEBUG
+        for ( int j = 0; j < start; j++ ) { cout << "\t"; }
+        cout << "Call" << calls << " w=" << cumulative_weight << ", v=" << cumulative_value << ", start=" << start
+             << " i wi vi: (" << i << ", " << items[i].get_weight() << ", " << items[i].get_value() << ")" << endl;
+#endif
+
         if (cw > wmax) {
-            cout << "Exceeded wmax, cw=" << cw << ", cv=" << cv << endl;
             continue;
         } else if (cw == wmax) {
-            cout << "At wmax, cw=" << cw << ", cv=" << cv << endl;
             save_max_value(cv);
-        } else
-            fill_knapsack(cw, cv, wmax, next_start, items);
+        } else {
+            save_max_value(cv);
+            if (next_start < items.size())
+                fill_knapsack(cw, cv, wmax, next_start, items);
+        }
     }
-    save_max_value(cumulative_value);
 }
 
 void save_max_value( uint32_t cv) {
