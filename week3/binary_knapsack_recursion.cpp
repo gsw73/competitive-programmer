@@ -23,11 +23,16 @@ private:
     uint32_t value;
 public:
     Item();
+
     explicit Item(uint32_t w, uint32_t v);
+
     uint32_t get_weight() const { return weight; }
+
     uint32_t get_value() const { return value; }
-    friend std::ostream & operator<<(std::ostream & os, const Item & it);
-    friend bool operator<(const Item & i1, const Item & i2);
+
+    friend std::ostream &operator<<(std::ostream &os, const Item &it);
+
+    friend bool operator<(const Item &i1, const Item &i2);
 };
 
 Item::Item() {
@@ -40,26 +45,30 @@ Item::Item(uint32_t w, uint32_t v) {
     value = v;
 }
 
-std::ostream & operator<<(std::ostream & os, const Item & it) {
+std::ostream &operator<<(std::ostream &os, const Item &it) {
     os << "w = " << it.weight << ", v = " << it.value;
     return os;
 }
 
-bool operator<(const Item & i1, const Item & i2 ) {
+bool operator<(const Item &i1, const Item &i2) {
     return (i1.value > i2.value) || ((i1.value == i2.value) && (i1.weight < i2.weight));
 }
 
 static uint32_t max_value;
-void show_input( uint32_t, uint32_t, vector<Item> & );
-void save_max_value(uint32_t);
-void fill_knapsack(uint32_t cumulative_weight, uint32_t cumulative_value, uint32_t wmax, uint32_t start, vector<Item> & items);
 
-int main( int argc, char *argv[] ) {
+void show_input(uint32_t, uint32_t, vector<Item> &);
+
+void save_max_value(uint32_t);
+
+void fill_knapsack(uint32_t cumulative_weight, uint32_t cumulative_value, uint32_t wmax, uint32_t start,
+                   vector<Item> &items);
+
+int main(int argc, char *argv[]) {
     uint32_t n, wmax;
     vector<Item> items;
 
     cin >> n >> wmax;
-    for ( int i = 0; i < n; i++ ) {
+    for (int i = 0; i < n; i++) {
         uint32_t wi, vi;
         cin >> wi >> vi;
         Item *an_item = new Item(wi, vi);
@@ -84,7 +93,8 @@ int main( int argc, char *argv[] ) {
     return 0;
 }
 
-void fill_knapsack(uint32_t cumulative_weight, uint32_t cumulative_value, uint32_t wmax, uint32_t start, vector<Item> & items) {
+void fill_knapsack(uint32_t cumulative_weight, uint32_t cumulative_value, uint32_t wmax, uint32_t start,
+                   vector<Item> &items) {
     uint32_t cw, cv;
     uint32_t next_start;
 #ifdef MYDEBUG
@@ -92,7 +102,7 @@ void fill_knapsack(uint32_t cumulative_weight, uint32_t cumulative_value, uint32
     calls++;
 #endif
 
-    for ( int i = start; i < items.size(); i++) {
+    for (int i = start; i < items.size(); i++) {
         cw = cumulative_weight + items[i].get_weight();
         cv = cumulative_value + items[i].get_value();
         next_start = i + 1;
@@ -115,15 +125,15 @@ void fill_knapsack(uint32_t cumulative_weight, uint32_t cumulative_value, uint32
     }
 }
 
-void save_max_value( uint32_t cv) {
+void save_max_value(uint32_t cv) {
     // cout << "\tCheck max value, max_value=" << max_value << ", cv=" << cv << endl;
     if (cv > max_value)
         max_value = cv;
 }
 
-void show_input( uint32_t n, uint32_t wmax, vector<Item> & items ) {
+void show_input(uint32_t n, uint32_t wmax, vector<Item> &items) {
     cout << "n = " << n << ", wmax = " << wmax << endl;
-    for ( auto & val : items )
+    for (auto &val : items)
         cout << val << endl;
 }
 
