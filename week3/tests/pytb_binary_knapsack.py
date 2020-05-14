@@ -44,14 +44,20 @@ def main():
     tests.append(test7)
     
     # test8
-    test8 = {'n': 3, 'wmax': 1073741824, 'wv_pairs': '1073741823 5\n1073741824 6\n1 2', 'output': '7'}
+    test8 = {'n': 3, 'wmax': 1073741824, 'wv_pairs': '1073741824 5\n1073741824 6\n1 2', 'output': '6'}
     test8['input'] = str(test8['n']) + ' ' + str(test8['wmax']) + '\n' + test8['wv_pairs']
     tests.append(test8)
     
     # test9
-    test9 = {'n': 3, 'wmax': 1073741824, 'wv_pairs': '1073741823 5\n1073741824 10\n1 2', 'output': '10'}
+    test9 = {'n': 3, 'wmax': 1073741824, 'wv_pairs': '1073741824 5\n1073741824 10\n1 2', 'output': '10'}
     test9['input'] = str(test9['n']) + ' ' + str(test9['wmax']) + '\n' + test9['wv_pairs']
     tests.append(test9)
+    
+    # test10
+    test10 = {'n': 10, 'wmax': 12, 'wv_pairs': '1 6 1 3 1 9 2 4 2 10 4 2 4 1 8 1 8 9 8 6', 'output': '34'}
+    test10['input'] = str(test10['n']) + ' ' + str(test10['wmax']) + '\n' + test10['wv_pairs']
+    tests.append(test10)
+
 
     for test in tests:
         testnum += 1
