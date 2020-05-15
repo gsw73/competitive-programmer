@@ -10,6 +10,8 @@
 #include <vector>
 #include <cinttypes>
 #include <array>
+#include <algorithm>
+#include <cassert>
 
 using std::cin;
 using std::cout;
