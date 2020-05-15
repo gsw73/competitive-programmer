@@ -16,6 +16,8 @@ using std::cout;
 using std::endl;
 using std::vector;
 using std::array;
+using std::sort;
+using std::reverse;
 
 // #define MYDEBUG
 
@@ -84,8 +86,8 @@ int main(int argc, char *argv[]) {
 #endif
 
     // items are sorted with lightest weight at the back
-    std::sort(items.begin(), items.end());
-    std::reverse(items.begin(), items.end());
+    sort(items.begin(), items.end());
+    reverse(items.begin(), items.end());
 
 #ifdef MYDEBUG
     cout << endl;
@@ -103,7 +105,7 @@ int main(int argc, char *argv[]) {
 
         // array holds list of all values that fit in the same size bags;
         // sort array so most valuable is at the end
-        std::sort(same_weight_values.begin(), same_weight_values.begin() + swv_size);
+        sort(same_weight_values.begin(), same_weight_values.begin() + swv_size);
 
         // if wmax has a sub bag of this size, take highest value (last element) and put it in the bag
         if ((wmax & sub_bag_weight) && (swv_size > 0)) {
@@ -143,11 +145,7 @@ int main(int argc, char *argv[]) {
     }
 
     // max value is the sum of the maximum value that could be fitted into each sub bag
-    // for (auto &val : sub_bags) max_value += val;
-    max_value = 0;
-    for ( int j = 0; j < 32; j++ ) {
-        max_value += sub_bags[j];
-    }
+    for (auto &val : sub_bags) max_value += val;
 
     cout << max_value << endl;
     return 0;
