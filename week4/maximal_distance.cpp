@@ -31,7 +31,7 @@ struct pair {
 int main(int argc, char *argv[]) {
     uint32_t n;
     vector<uint32_t> coordinates;
-    coord min{0, (uint32_t) (-1)};
+    coord min{0};
     coord max{0};
     vector<pair> answer;
 
@@ -45,7 +45,12 @@ int main(int argc, char *argv[]) {
         coordinates.push_back(val);
     }
 
-    for (uint32_t i = 1; i <= n; i++) {
+    // seed min and max with first coordinate since the first answer is always "1 1"
+    min = {1, coordinates[1]};
+    max = {1, coordinates[1]};
+    answer.push_back({1, 1});
+
+    for (uint32_t i = 2; i <= n; i++) {
         pair tmp{0};
         if (coordinates[i] < min.location) {
             min.ind = i;
