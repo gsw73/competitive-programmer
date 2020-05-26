@@ -51,14 +51,14 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // initialize first row
+    // initialize first row - inserting
     for (int32_t i = 0; i < m_len_w + 1; ++i){
-        ar[0][i] = (uint32_t) i;
+        ar[0][i] = (uint32_t) i * i_cost;
     }
 
-    // initialize first column
+    // initialize first column - deleting
     for (int32_t i = 0; i < n_len_u + 1; ++i) {
-        ar[i][0] = (uint32_t) i;
+        ar[i][0] = (uint32_t) i * d_cost;
     }
 
     show_matrix(ar, n_len_u, m_len_w);
@@ -83,8 +83,9 @@ int main(int argc, char *argv[]) {
 
 uint32_t mymin(uint32_t d, uint32_t i, uint32_t s) {
     uint32_t min;
-    min = (d < i) && (d < s) ? d :
-          (i < d) && (i < s) ? i : s;
+    min = d;
+    min = i < min ? i : min;
+    min = s < min ? s : min;
     return(min);
 }
 
