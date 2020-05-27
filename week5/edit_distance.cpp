@@ -19,7 +19,7 @@ using std::cout;
 using std::endl;
 using std::string;
 
-#define MYDEBUG
+// #define MYDEBUG
 
 void show_input(uint32_t n, uint32_t m, string &u, string &w, uint32_t i, uint32_t d, uint32_t s_c);
 void show_matrix(uint32_t **myarray, uint32_t n, uint32_t m);
@@ -35,7 +35,9 @@ int main(int argc, char *argv[]) {
     cin >> u_str >> w_str;
     cin >> i_cost >> d_cost >> s_cost;
 
+#ifdef MYDEBUG
     show_input(n_len_u, m_len_w, u_str, w_str, i_cost, d_cost, s_cost);
+#endif
 
     // allocate space for 2d array
     ar = new uint32_t* [n_len_u + 1];
@@ -61,7 +63,9 @@ int main(int argc, char *argv[]) {
         ar[i][0] = (uint32_t) i * d_cost;
     }
 
+#ifdef MYDEBUG
     show_matrix(ar, n_len_u, m_len_w);
+#endif
 
     // implement the distance algorithm
     for ( auto i = 1; i < n_len_u + 1; ++i) {
@@ -74,9 +78,15 @@ int main(int argc, char *argv[]) {
         }
     }
 
+#ifdef MYDEBUG
     cout << endl << endl;
     show_matrix(ar, n_len_u, m_len_w);
     cout << endl << endl;
+
+    cout << "edit distance = " << endl;
+#endif
+
+    cout << ar[n_len_u][m_len_w] << endl;
 
     return 0;
 }
