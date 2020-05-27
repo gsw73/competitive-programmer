@@ -11,13 +11,14 @@
 #include <iostream>
 #include <cinttypes>
 #include <vector>
+#include <algorithm>
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::vector;
 
-#define MYDEBUG
+// #define MYDEBUG
 
 void show_input(uint32_t, vector<uint32_t> &);
 
@@ -33,7 +34,9 @@ int main(int argc, char *argv[]) {
         ar.push_back(val);
     }
 
+#ifdef MYDEBUG
     show_input(num, ar);
+#endif
 
     // implement algorithm
     for (auto i = 0; i < ar.size(); ++i){
