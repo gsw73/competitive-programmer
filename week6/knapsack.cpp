@@ -9,13 +9,15 @@
 #include <iostream>
 #include <vector>
 #include <cinttypes>
+#include <algorithm>
 
 using std::cin;
 using std::cout;
 using std::endl;
 using std::vector;
+using std::reverse;
 
-#define MYDEBUG
+// #define MYDEBUG
 
 struct item { uint32_t w; uint32_t v; };
 
@@ -27,6 +29,7 @@ int main(int argc, char *argv[]) {
     uint32_t num, w_max;
     vector<item> items;
     vector<vector<int32_t>> Ti;
+    vector<int32_t> vertices;
 
     cin >> num >> w_max;
     for (auto i = 0; i < num; ++i) {
@@ -35,7 +38,9 @@ int main(int argc, char *argv[]) {
         items.push_back(new_item);
     }
 
+#ifdef MYDEBUG
     show_input(num, w_max, items);
+#endif
 
     // initialize table to None, going down
     for (auto i = 0; i < w_max + 1; ++i) {
@@ -43,15 +48,19 @@ int main(int argc, char *argv[]) {
         Ti.push_back(v_row);
     }
 
+#ifdef MYDEBUG
     show_table(num, w_max, Ti);
+#endif
 
     // init the no-items col to 0
     for (auto row = 0; row < w_max + 1; ++row) {
         Ti.at(row).at(0) = 0;
     }
 
+#ifdef MYDEBUG
     cout << endl;
     show_table(num, w_max, Ti);
+#endif
 
     // go down each column, filling in the table, starting at col1
     // col = item number, i;
@@ -62,17 +71,42 @@ int main(int argc, char *argv[]) {
             Ti.at(row).at(col) = Ti.at(row).at(col - 1);
 
             // if the next item can fit in the bag, see if it adds value
-            if (row >= items.at(col - 1).w) {
-                item item_to_check = items.at(col - 1);
+            item item_to_check = items.at(col - 1);
+            if (row >= item_to_check.w) {
                 Ti.at(row).at(col) = mymax(Ti.at(row).at(col), Ti.at(row - item_to_check.w).at(col - 1) + item_to_check.v);
             }
         }
     }
 
+#ifdef MYDEBUG
     cout << endl;
     show_table(num, w_max, Ti);
-
     cout << "max value=" << Ti.at(w_max).at(num) << endl;
+#endif
+
+
+    // unwind
+    uint32_t row = w_max;
+    for (auto col = num; col >= 1; --col) {
+        if (Ti.at(row).at(col) == Ti.at(row).at(col - 1)) {
+            continue;
+        } else {
+            vertices.push_back(col - 1);
+            row -= items.at(col - 1).w;
+        }
+    }
+
+    // put vertices in incrementing order
+    reverse(vertices.begin(), vertices.end());
+
+#ifdef MYDEBUG
+    cout << "k= first row; vertices = second row" << endl;
+    cout << "vertices = " << endl;
+#endif
+
+    // answer requires 1-based vertices i.e., from 1 to n; vertices is 0 based, so add 1 here
+    cout << vertices.size() << endl;
+    for (auto val : vertices) { cout << val + 1 << " "; }
 
     return 0;
 }
