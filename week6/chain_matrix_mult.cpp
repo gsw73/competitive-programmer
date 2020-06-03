@@ -84,7 +84,9 @@ int64_t matrix_mult(vector<uint32_t> &ms, uint32_t i, uint32_t j) {
 void show_table(uint32_t n) {
     for (auto row = 0; row < n + 1; ++row) {
         for (auto col = 0; col < n + 1; ++col) {
-            printf("%3ld ", Tr.at(row).at(col));
+            // printf("%3ld ", Tr.at(row).at(col));
+            cout.width(4);
+            cout << Tr.at(row).at(col) << " ";
         }
         cout << endl;
     }
